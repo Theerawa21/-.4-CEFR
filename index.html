@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123f7a">
+  <meta name="description" content="ระบบค้นหาและคัดลอกรหัสเข้าสอบ Oxford English Testing สำหรับนักเรียนชั้นมัธยมศึกษาปีที่ 4 โรงเรียนเซนต์เทเรซา">
+  <title>ระบบคัดลอกรหัสเข้าสอบ | ม.4 CEFR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="app-card" aria-labelledby="page-title">
+      <header class="app-header">
+        <div class="school-mark" aria-hidden="true">ST</div>
+        <div>
+          <h1 id="page-title">ระบบคัดลอกรหัสเข้าสอบ</h1>
+          <p>Oxford English Testing · โรงเรียนเซนต์เทเรซา</p>
+        </div>
+      </header>
+
+      <div class="search-panel">
+        <form id="lookup-form" novalidate>
+          <label for="student-id">เลขประจำตัวนักเรียน</label>
+          <div class="search-row">
+            <input
+              id="student-id"
+              name="studentId"
+              type="text"
+              inputmode="numeric"
+              autocomplete="off"
+              maxlength="10"
+              placeholder="กรอกเลขประจำตัวนักเรียน"
+              aria-describedby="student-id-help"
+              required
+            >
+            <button id="search-button" class="primary-button" type="submit">ค้นหารหัส</button>
+          </div>
+          <p id="student-id-help" class="field-help">กรอกเฉพาะเลขประจำตัวนักเรียนของตนเอง</p>
+        </form>
+      </div>
+
+      <div id="system-message" class="system-message" role="status" aria-live="polite" hidden></div>
+
+      <section id="result-panel" class="result-panel" aria-labelledby="result-heading" hidden>
+        <div class="result-heading-row">
+          <div>
+            <p class="result-label">พบข้อมูลนักเรียน</p>
+            <h2 id="result-heading">ข้อมูลสำหรับเข้าสอบ</h2>
+          </div>
+          <span id="student-class" class="class-badge"></span>
+        </div>
+
+        <dl class="student-summary">
+          <div>
+            <dt>ชื่อ-นามสกุล</dt>
+            <dd id="student-name">-</dd>
+          </div>
+          <div>
+            <dt>เลขประจำตัวนักเรียน</dt>
+            <dd id="student-id-result">-</dd>
+          </div>
+        </dl>
+
+        <div class="credential-grid">
+          <article class="credential-box">
+            <div>
+              <span class="credential-label">Username</span>
+              <strong id="username">-</strong>
+            </div>
+            <button class="copy-button" type="button" data-copy-target="username">คัดลอก</button>
+          </article>
+
+          <article class="credential-box">
+            <div>
+              <span class="credential-label">Password</span>
+              <strong id="password">-</strong>
+            </div>
+            <button class="copy-button" type="button" data-copy-target="password">คัดลอก</button>
+          </article>
+        </div>
+
+        <div class="meta-grid">
+          <div>
+            <span>Org ID</span>
+            <strong id="org-id">-</strong>
+          </div>
+          <div>
+            <span>Group</span>
+            <strong id="group-id">-</strong>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <a id="exam-link" class="primary-button link-button" href="https://www.oxfordenglishtesting.com" target="_blank" rel="noopener noreferrer">เปิดเว็บไซต์เข้าสอบ</a>
+          <button id="clear-button" class="secondary-button" type="button">ล้างข้อมูล</button>
+        </div>
+      </section>
+
+      <section id="setup-panel" class="setup-panel" hidden>
+        <h2>ยังไม่ได้เชื่อม Google Apps Script</h2>
+        <p>ผู้ดูแลระบบต้อง Deploy ไฟล์ <code>Code.gs</code> เป็น Web app แล้วนำ URL ที่ได้ไปใส่ในตัวแปร <code>API_URL</code> ภายในไฟล์ <code>app.js</code></p>
+      </section>
+
+      <footer class="app-footer">
+        <p>ข้อมูลรหัสสอบเป็นข้อมูลเฉพาะบุคคล กรุณาไม่ส่งต่อรหัสของผู้อื่น</p>
+      </footer>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
