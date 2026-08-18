@@ -72,6 +72,18 @@ function clearResult({ focus = false } = {}) {
   }
 }
 
+function scrollToResultOnMobile() {
+  if (!window.matchMedia('(max-width: 640px)').matches) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.requestAnimationFrame(() => {
+    resultPanel.scrollIntoView({
+      behavior: reduceMotion ? 'auto' : 'smooth',
+      block: 'start',
+    });
+  });
+}
+
 function renderResult(data) {
   fields.studentName.textContent = data.name || '-';
   fields.studentClass.textContent = data.className || '-';
@@ -84,6 +96,7 @@ function renderResult(data) {
 
   resultPanel.hidden = false;
   setMessage('พบข้อมูลนักเรียนแล้ว กรุณาตรวจสอบชื่อและชั้นเรียนก่อนนำรหัสไปใช้', 'success');
+  scrollToResultOnMobile();
 
   window.clearTimeout(autoClearTimer);
   autoClearTimer = window.setTimeout(() => {
@@ -180,6 +193,7 @@ form.addEventListener('submit', async (event) => {
     return;
   }
 
+  studentIdInput.blur();
   setLoading(true);
 
   try {
