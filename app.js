@@ -1,4 +1,4 @@
-const API_URL = 'PASTE_APPS_SCRIPT_WEB_APP_URL_HERE';
+const API_URL = 'https://script.google.com/macros/s/AKfycbyWpXSyET8FUWWFxHzrS71hqCjqrNjNRdSGDuBGcvooCc-eAzUuyhjZRF8Wh4EC21eIzw/exec';
 const EXAM_URL = 'https://www.oxfordenglishtesting.com';
 
 const form = document.getElementById('lookup-form');
