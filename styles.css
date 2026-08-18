@@ -4,7 +4,6 @@
   --blue-soft: #edf5ff;
   --sky: #dbeafe;
   --accent: #f4c542;
-  --accent-deep: #d7a914;
   --text: #172033;
   --muted: #667085;
   --border: #d9e2ef;
@@ -26,10 +25,13 @@
 html {
   min-height: 100%;
   background: #f5f8fc;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   font-family: "Noto Sans Thai", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--text);
@@ -46,6 +48,12 @@ input {
 button,
 a {
   -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a,
+input {
+  touch-action: manipulation;
 }
 
 .page-shell {
@@ -95,6 +103,7 @@ a {
   margin: 5px 0 0;
   color: rgba(255, 255, 255, 0.82);
   font-size: 0.96rem;
+  line-height: 1.45;
 }
 
 .search-panel {
@@ -115,7 +124,7 @@ a {
 
 input {
   width: 100%;
-  min-height: 52px;
+  min-height: 54px;
   padding: 0 16px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
@@ -135,12 +144,13 @@ input:focus {
   margin: 9px 0 0;
   color: var(--muted);
   font-size: 0.88rem;
+  line-height: 1.5;
 }
 
 .primary-button,
 .secondary-button,
 .copy-button {
-  min-height: 48px;
+  min-height: 50px;
   border: 0;
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -160,6 +170,12 @@ input:focus {
   transform: translateY(-1px);
 }
 
+.primary-button:active,
+.secondary-button:active,
+.copy-button:active {
+  transform: scale(0.985);
+}
+
 .primary-button:disabled {
   cursor: wait;
   opacity: 0.65;
@@ -174,11 +190,12 @@ input:focus {
 }
 
 .copy-button {
-  min-height: 40px;
-  padding: 0 14px;
+  min-height: 42px;
+  padding: 0 15px;
   background: var(--blue-soft);
   color: var(--navy);
   font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 .copy-button:hover,
@@ -188,10 +205,11 @@ input:focus {
 
 .system-message {
   margin: 0 32px 22px;
-  padding: 12px 14px;
+  padding: 13px 14px;
   border-radius: var(--radius-sm);
   font-weight: 600;
   font-size: 0.94rem;
+  line-height: 1.55;
 }
 
 .system-message.success {
@@ -269,6 +287,7 @@ input:focus {
 .student-summary dd {
   margin: 4px 0 0;
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
 .credential-grid {
@@ -325,6 +344,7 @@ input:focus {
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  text-align: center;
 }
 
 .setup-panel {
@@ -381,27 +401,57 @@ input:focus {
 }
 
 @media (max-width: 640px) {
+  body {
+    background: #f7f9fc;
+  }
+
   .page-shell {
-    width: min(100% - 20px, 760px);
-    padding: 18px 0;
+    width: 100%;
+    padding: 0;
   }
 
   .app-card {
-    border-radius: 20px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
   }
 
-  .app-header,
-  .search-panel,
-  .app-footer {
-    padding-left: 20px;
-    padding-right: 20px;
+  .app-header {
+    gap: 12px;
+    padding-top: calc(18px + env(safe-area-inset-top));
+    padding-right: max(18px, env(safe-area-inset-right));
+    padding-bottom: 18px;
+    padding-left: max(18px, env(safe-area-inset-left));
   }
 
-  .system-message,
-  .result-panel,
-  .setup-panel {
-    margin-left: 20px;
-    margin-right: 20px;
+  .school-mark {
+    flex-basis: 46px;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    font-size: 15px;
+  }
+
+  .app-header h1 {
+    font-size: 1.24rem;
+    line-height: 1.25;
+  }
+
+  .app-header p {
+    margin-top: 3px;
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  .search-panel {
+    padding: 22px 18px 15px;
+  }
+
+  .search-panel label {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
   }
 
   .search-row,
@@ -411,23 +461,190 @@ input:focus {
     grid-template-columns: 1fr;
   }
 
+  .search-row {
+    gap: 9px;
+  }
+
+  input {
+    min-height: 56px;
+    padding: 0 16px;
+    font-size: 16px;
+    border-radius: 14px;
+  }
+
   .search-row .primary-button {
     width: 100%;
+    min-height: 56px;
+    font-size: 1rem;
+    border-radius: 14px;
+  }
+
+  .field-help {
+    margin-top: 8px;
+    font-size: 0.8rem;
+  }
+
+  .system-message,
+  .result-panel,
+  .setup-panel {
+    margin-left: 18px;
+    margin-right: 18px;
+  }
+
+  .system-message {
+    margin-bottom: 14px;
+    padding: 12px 13px;
+    font-size: 0.88rem;
   }
 
   .result-panel {
-    padding: 18px;
+    margin-bottom: 22px;
+    padding: 17px;
+    border-radius: 18px;
+  }
+
+  .result-heading-row {
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .result-heading-row h2 {
+    font-size: 1.08rem;
+  }
+
+  .result-label {
+    font-size: 0.78rem;
+  }
+
+  .class-badge {
+    padding: 6px 10px;
+    font-size: 0.82rem;
+  }
+
+  .student-summary {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .student-summary > div,
+  .meta-grid > div {
+    padding: 12px 13px;
+  }
+
+  .student-summary dd {
+    font-size: 0.96rem;
+  }
+
+  .credential-grid {
+    gap: 9px;
   }
 
   .credential-box {
-    align-items: center;
+    gap: 10px;
+    padding: 14px;
+    border-radius: 15px;
+  }
+
+  .credential-box strong {
+    font-size: 1.12rem;
+    letter-spacing: 0.01em;
+  }
+
+  .copy-button {
+    min-width: 82px;
+    min-height: 46px;
+    padding: 0 14px;
+    border-radius: 12px;
+    font-size: 0.88rem;
+  }
+
+  .meta-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 9px;
+  }
+
+  .meta-grid strong {
+    font-size: 0.95rem;
   }
 
   .result-actions {
     flex-direction: column;
+    gap: 9px;
+    margin-top: 15px;
   }
 
   .result-actions > * {
     width: 100%;
+    min-height: 54px;
+    border-radius: 14px;
+  }
+
+  .setup-panel {
+    padding: 15px;
+  }
+
+  .app-footer {
+    margin-top: auto;
+    padding-top: 15px;
+    padding-right: max(18px, env(safe-area-inset-right));
+    padding-bottom: calc(18px + env(safe-area-inset-bottom));
+    padding-left: max(18px, env(safe-area-inset-left));
+    font-size: 0.76rem;
+    line-height: 1.5;
+  }
+
+  .toast {
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    left: 12px;
+    max-width: none;
+    padding: 13px 15px;
+    text-align: center;
+    font-size: 0.86rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .app-header {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .school-mark {
+    display: none;
+  }
+
+  .search-panel {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .system-message,
+  .result-panel,
+  .setup-panel {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  .credential-box {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .copy-button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
